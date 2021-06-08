@@ -71,7 +71,12 @@ module.exports = {
             urlsToAdd.forEach((url) => console.log(`${tab} • ${url}`));
             management.clients.update(
               { client_id: process.env.AUTH0_CLIENT_ID },
-              { web_origins: clientWebOrigins.concat(urlsToAdd) },
+              {
+                web_origins: clientWebOrigins.concat(urlsToAdd),
+                callbacks: clientWebOrigins.concat(urlsToAdd),
+                allowed_logout_urls: clientWebOrigins.concat(urlsToAdd),
+                allowed_origins: clientWebOrigins.concat(urlsToAdd)
+              },
               (updateError) => {
                 if (updateError) {
                   utils.build.failPlugin(
